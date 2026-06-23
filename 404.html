@@ -2,9 +2,6 @@
 <meta charset="utf-8">
 <title>cheryl aurelia</title>
 <script>
-  // GitHub Pages serves this file for any unknown path. We stash the requested
-  // path and bounce to the root app, which restores it (see theme.js). This is
-  // what makes clean URLs like /about and /blog/0th-term work on refresh / direct links.
   sessionStorage.setItem('spa-redirect', location.pathname + location.search);
   location.replace('/');
 </script>
