@@ -23,6 +23,11 @@
   var panels = document.querySelectorAll('[data-panel]');
   var navLinks = document.querySelectorAll('nav a[data-tab]');
 
+  function currentName() {
+    var p = location.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+    return p || 'about';
+  }
+
   function showTab(name) {
     if (!name || !document.querySelector('[data-panel="' + name + '"]')) {
       name = 'about';
@@ -31,7 +36,8 @@
       p.hidden = p.getAttribute('data-panel') !== name;
     });
     navLinks.forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('data-tab') === name);
+      var tab = a.getAttribute('data-tab');
+      a.classList.toggle('active', tab === name || name.indexOf(tab + '/') === 0);
     });
   }
 
@@ -39,15 +45,25 @@
     el.addEventListener('click', function (e) {
       e.preventDefault();
       var name = el.getAttribute('data-tab');
-      if (location.hash.slice(1) === name) showTab(name); // re-click same tab
-      else location.hash = name;
+      if (currentName() !== name) history.pushState(null, '', '/' + name);
+      showTab(name);
       window.scrollTo(0, 0);
     });
   });
 
-  window.addEventListener('hashchange', function () {
-    showTab(location.hash.slice(1));
+  // back/forward buttons
+  window.addEventListener('popstate', function () {
+    showTab(currentName());
   });
 
-  showTab(location.hash.slice(1)); // honor the hash on first load
+  // restore a deep link that came in via the 404.html bounce
+  try {
+    var redir = sessionStorage.getItem('spa-redirect');
+    if (redir) {
+      sessionStorage.removeItem('spa-redirect');
+      history.replaceState(null, '', redir);
+    }
+  } catch (e) {}
+
+  showTab(currentName()); // honor the path on first load
 })();
