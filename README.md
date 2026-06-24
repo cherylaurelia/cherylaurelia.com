@@ -1,6 +1,6 @@
 <div align="center">
 
-![favicon](https://raw.githubusercontent.com/cherylaurelia/v0/main/favicon.svg)
+<img src="https://raw.githubusercontent.com/cherylaurelia/v0/main/favicon.svg" alt="favicon" width="64">
 
 # v0
 
