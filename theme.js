@@ -74,6 +74,7 @@
         ticking = false;
       });
     });
+  }
 
   try {
     var redir = sessionStorage.getItem('spa-redirect');
