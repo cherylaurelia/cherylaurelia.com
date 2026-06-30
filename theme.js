@@ -1,5 +1,3 @@
-// theme toggle: cycles light <-> dark, persists to localStorage.
-// (an inline <head> script applies the saved theme before paint to avoid flicker.)
 (function () {
   var btn = document.querySelector('.theme-toggle');
   if (btn) {
@@ -41,7 +39,6 @@
     });
   }
 
-  // count a pageview in GoatCounter (no-op until the analytics script loads)
   function countView() {
     if (window.goatcounter && window.goatcounter.count) {
       window.goatcounter.count({ path: location.pathname, title: document.title });
@@ -60,14 +57,12 @@
     });
   });
 
-  // back/forward buttons
   window.addEventListener('popstate', function () {
     showTab(currentName());
     countView();
   });
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // cursor-reactive stars: subtle parallax driven by --px / --py
     var ticking = false;
     window.addEventListener('mousemove', function (e) {
       if (ticking) return;
@@ -80,19 +75,6 @@
       });
     });
 
-    // sparkle on click
-    document.addEventListener('click', function (e) {
-      var spark = document.createElement('div');
-      spark.className = 'spark';
-      spark.textContent = '✦';
-      spark.style.left = e.clientX + 'px';
-      spark.style.top = e.clientY + 'px';
-      document.body.appendChild(spark);
-      setTimeout(function () { spark.remove(); }, 700);
-    });
-  }
-
-  // restore a deep link that came in via the 404.html bounce
   try {
     var redir = sessionStorage.getItem('spa-redirect');
     if (redir) {
@@ -101,5 +83,5 @@
     }
   } catch (e) {}
 
-  showTab(currentName()); // honor the path on first load
+  showTab(currentName());
 })();
