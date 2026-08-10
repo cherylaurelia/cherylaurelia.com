@@ -85,4 +85,53 @@
   } catch (e) {}
 
   showTab(currentName());
+
+  var artModal = document.getElementById('art-modal');
+  var artModalImg = document.getElementById('art-modal-img');
+  var artModalTitle = document.getElementById('art-modal-title');
+  var artModalDesc = document.getElementById('art-modal-desc');
+  var artModalAudio = document.getElementById('art-modal-audio');
+  var artMuteBtn = document.getElementById('art-mute-btn');
+
+  function openArt(thumb) {
+    artModalImg.src = thumb.getAttribute('data-img') || '';
+    artModalImg.alt = thumb.getAttribute('data-title') || '';
+    artModalTitle.textContent = thumb.getAttribute('data-title') || '';
+    artModalDesc.textContent = thumb.getAttribute('data-desc') || '';
+    artModalAudio.src = thumb.getAttribute('data-audio') || '';
+    artModalAudio.muted = false;
+    artMuteBtn.classList.remove('is-muted');
+    artModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var playPromise = artModalAudio.play();
+    if (playPromise && playPromise.catch) playPromise.catch(function () {});
+  }
+
+  function closeArt() {
+    artModal.hidden = true;
+    document.body.style.overflow = '';
+    artModalAudio.pause();
+    artModalAudio.currentTime = 0;
+    artModalAudio.src = '';
+  }
+
+  document.querySelectorAll('.art-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () { openArt(thumb); });
+  });
+
+  if (artModal) {
+    artModal.querySelectorAll('[data-close]').forEach(function (el) {
+      el.addEventListener('click', closeArt);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !artModal.hidden) closeArt();
+    });
+  }
+
+  if (artMuteBtn) {
+    artMuteBtn.addEventListener('click', function () {
+      artModalAudio.muted = !artModalAudio.muted;
+      artMuteBtn.classList.toggle('is-muted', artModalAudio.muted);
+    });
+  }
 })();

@@ -73,7 +73,16 @@
 
     <!-- art -->
     <section data-panel="art" hidden>
-      <p class="muted">coming soon</p>
+      <p class="list-intro"><span class="muted">some art i've made, i put music i really² like for each piece!</span></p>
+      <div class="art-grid">
+        <button class="art-thumb" type="button"
+          data-title="placeholder"
+          data-desc="ill put the real thing soon :>."
+          data-img="/art-assets/placeholder-1.svg"
+          data-audio="/art-assets/Rocco - Isn't You (Official Visualizer).mp3">
+          <span class="art-thumb-frame"><img src="/art-assets/placeholder-1.svg" alt="untitled i" loading="lazy"></span>
+        </button>
+      </div>
     </section>
 
     <footer>
@@ -100,6 +109,26 @@
       <p class="copyright">© <span id="year"></span> cheryl aurelia</p>
     </footer>
   </main>
+
+  <div class="art-modal" id="art-modal" hidden>
+    <div class="art-modal-backdrop" data-close></div>
+    <div class="art-modal-content" role="dialog" aria-modal="true" aria-labelledby="art-modal-title">
+      <button class="art-modal-close" type="button" data-close aria-label="Close">&times;</button>
+      <img class="art-modal-img" id="art-modal-img" src="" alt="">
+      <div class="art-modal-body">
+        <div class="art-modal-head">
+          <h3 id="art-modal-title"></h3>
+          <button class="art-mute-btn" type="button" id="art-mute-btn" aria-label="Mute music" title="Mute music">
+            <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          </button>
+        </div>
+        <p class="art-modal-desc" id="art-modal-desc"></p>
+      </div>
+      <audio id="art-modal-audio" loop></audio>
+    </div>
+  </div>
+
   <script src="/theme.js"></script>
  <script data-goatcounter="https://cherylaurelia.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
